@@ -1,0 +1,4 @@
+code                                    app/code/local/Cn/Custopt
+adminhtml/layout/cn_custopt.xml         app/design/adminhtml/default/default/layout/cn_custopt.xml
+adminhtml/template/custopt              app/design/adminhtml/default/default/template/custopt
+Cn_Custopt.xml                          app/etc/modules/Cn_Custopt.xml
