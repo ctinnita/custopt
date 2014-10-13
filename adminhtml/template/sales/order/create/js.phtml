@@ -1,0 +1,64 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+ ?>
+<script type="text/javascript">
+
+    Event.observe(window, 'load',  function() {
+        if (window.productConfigure) {
+            productConfigure.addListType('items', {
+                urlFetch: '<?php echo $this->getUrl('custopt/adminhtml_sales_order_view/configureItems') ?>',
+                urlConfirm: '<?php echo $this->getUrl('custopt/adminhtml_ajax/save') ?>',                
+                urlReloadItem: '<?php echo $this->getUrl('custopt/adminhtml_ajax/reloadItem') ?>'              
+            });
+        }
+    });
+    
+    ProductConfigure.prototype.onCustoptConfirmBtn = function() { 
+        if (productCompositeConfigureForm.validate()) {
+            if (this.listTypes[this.current.listType].urlConfirm) {
+                this.submit();                
+                this._closeWindow();          
+                this.custoptReloadItem(this.listTypes[this.current.listType].urlReloadItem);                
+            } 
+        }
+        return this;
+    }
+    
+    ProductConfigure.prototype.custoptReloadItem = function(url) {
+        new Ajax.Request(url, {
+            parameters: {id: this.current.itemId},
+            onSuccess: function(transport) {
+                var response = transport.responseText;
+                if (response) {
+                    response = response + '';
+                    var itemTrId = 'custopt_order_item_' + this.current.itemId;
+                    $(itemTrId).update(response);
+                }
+            }.bind(this)
+        });
+    }
+    
+</script>

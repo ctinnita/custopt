@@ -1,0 +1,48 @@
+<config>
+    <modules>
+        <Cn_Custopt>
+            <version>1.0.0</version>
+        </Cn_Custopt>
+    </modules>
+    
+    <global>
+        <blocks>
+            <custopt>
+                <class>Cn_Custopt_Block</class>
+            </custopt>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view>Cn_Custopt_Block_Adminhtml_Sales_Order_View</sales_order_view>
+                </rewrite>
+            </adminhtml>            
+        </blocks>
+        <helpers>
+            <custopt>
+                <class>Cn_Custopt_Helper</class>
+            </custopt>
+        </helpers>        
+    </global>
+    
+    <adminhtml>
+        <layout>
+            <updates>
+                <custopt>
+                    <file>cn_custopt.xml</file>
+                </custopt>
+            </updates>
+        </layout>
+    </adminhtml>
+    
+    <admin>
+        <routers>
+            <custopt>
+                <use>admin</use>
+                <args>
+                   <module>Cn_Custopt</module>
+                   <frontName>custopt</frontName>
+                </args>
+            </custopt>            
+        </routers>
+    </admin>
+    
+</config>
